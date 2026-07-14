@@ -1,26 +1,26 @@
 
 # 补充的翻墙网站
-DOMAIN-SUFFIX,kitty.sb,Proxy
+DOMAIN-SUFFIX,kitty.sb
 
 # >>> 卡通農場 (Hay Day) & Supercell 規則 <<<
 # 遊戲主伺服器與 CDN 加載
-DOMAIN-KEYWORD,supercell,PROXY
-DOMAIN-SUFFIX,supercell.com,PROXY
-DOMAIN-SUFFIX,supercellid.com,PROXY
-DOMAIN-SUFFIX,supercellgames.com,PROXY
-DOMAIN-SUFFIX,haydaygame.com,PROXY
+DOMAIN-KEYWORD,supercell
+DOMAIN-SUFFIX,supercell.com
+DOMAIN-SUFFIX,supercellid.com
+DOMAIN-SUFFIX,supercellgames.com
+DOMAIN-SUFFIX,haydaygame.com
 # 遊戲內社群、商城與活動網域
-DOMAIN-SUFFIX,supercellstore.com,PROXY
-DOMAIN-SUFFIX,supercellcreators.com,PROXY
-DOMAIN-SUFFIX,gamesfirsthelsinki.com,PROXY
+DOMAIN-SUFFIX,supercellstore.com
+DOMAIN-SUFFIX,supercellcreators.com
+DOMAIN-SUFFIX,gamesfirsthelsinki.com
 # 遊戲內嵌客服與幫助中心
-DOMAIN-SUFFIX,helpshift.com,PROXY
+DOMAIN-SUFFIX,helpshift.com
 # 廣告與關聯統計（部分活動與禮包加載需要）
-DOMAIN-SUFFIX,doubleclick.net,PROXY
-DOMAIN-SUFFIX,google-analytics.com,PROXY
-DOMAIN-KEYWORD,unity3d,PROXY
+DOMAIN-SUFFIX,doubleclick.net
+DOMAIN-SUFFIX,google-analytics.com
+DOMAIN-KEYWORD,unity3d
 # 广告追踪与数据分析服务
-DOMAIN-SUFFIX,appsflyersdk.com,PROXY
-DOMAIN-SUFFIX,quago.io,PROXY
+DOMAIN-SUFFIX,appsflyersdk.com
+DOMAIN-SUFFIX,quago.io
 # Sentry 错误日志收集服务
-DOMAIN-SUFFIX,sentry.io,PROXY
+DOMAIN-SUFFIX,sentry.io
