@@ -24,3 +24,11 @@ DOMAIN-SUFFIX,appsflyersdk.com
 DOMAIN-SUFFIX,quago.io
 # Sentry 错误日志收集服务
 DOMAIN-SUFFIX,sentry.io
+
+# 手工定义的 Proxy 列表
+# S
+DOMAIN-SUFFIX,hlbdy27.com,Proxy
+DOMAIN-SUFFIX,hl718.com,Proxy
+DOMAIN-SUFFIX,hlgw19.com,Proxy
+DOMAIN-SUFFIX,51aw14.com,Proxy
+DOMAIN-SUFFIX,jhvkcnsk.com,Proxy
