@@ -27,8 +27,8 @@ DOMAIN-SUFFIX,sentry.io
 
 # 手工定义的 Proxy 列表
 # S
-DOMAIN-SUFFIX,hlbdy27.com,Proxy
-DOMAIN-SUFFIX,hl718.com,Proxy
-DOMAIN-SUFFIX,hlgw19.com,Proxy
-DOMAIN-SUFFIX,51aw14.com,Proxy
-DOMAIN-SUFFIX,jhvkcnsk.com,Proxy
+DOMAIN-SUFFIX,hlbdy27.com
+DOMAIN-SUFFIX,hl718.com
+DOMAIN-SUFFIX,hlgw19.com
+DOMAIN-SUFFIX,51aw14.com
+DOMAIN-SUFFIX,jhvkcnsk.com
