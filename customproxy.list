@@ -2,40 +2,15 @@
 DOMAIN-SUFFIX,kitty.sb
 
 ## >>> 卡通農場 (Hay Day) & Supercell 規則 <<<
-## 遊戲主伺服器與 CDN 加載
-#DOMAIN-KEYWORD,supercell
-#DOMAIN-SUFFIX,supercell.com
-#DOMAIN-SUFFIX,supercellid.com
-#DOMAIN-SUFFIX,supercellgames.com
-#DOMAIN-SUFFIX,haydaygame.com
-## 遊戲內社群、商城與活動網域
-#DOMAIN-SUFFIX,supercellstore.com
-#DOMAIN-SUFFIX,supercellcreators.com
-#DOMAIN-SUFFIX,gamesfirsthelsinki.com
-## 遊戲內嵌客服與幫助中心
-#DOMAIN-SUFFIX,helpshift.com
-## 廣告與關聯統計（部分活動與禮包加載需要）
-#DOMAIN-SUFFIX,doubleclick.net
-#DOMAIN-SUFFIX,google-analytics.com
-#DOMAIN-KEYWORD,unity3d
-## 广告追踪与数据分析服务
-#DOMAIN-SUFFIX,appsflyersdk.com
-#DOMAIN-SUFFIX,quago.io
-## Sentry 错误日志收集服务
-#DOMAIN-SUFFIX,sentry.io
-
 # === Google 广告及相关服务（走代理） ===
 DOMAIN-KEYWORD,goog
 DOMAIN-SUFFIX,doubleclick-cn.net
 DOMAIN-SUFFIX,googleads.g.doubleclick-cn.net
-
 # === Unity 广告 / 统计服务 ===
 DOMAIN-SUFFIX,unity3d.com
-
 # === Supercell 游戏及相关服务（建议直连以保证稳定性，也可改为 PROXY） ===
 DOMAIN-SUFFIX,supercell.com
 DOMAIN-SUFFIX,haydaygame.com
-
 # === 归因分析与数据统计服务（直连） ===
 DOMAIN-SUFFIX,sentry.io
 DOMAIN-SUFFIX,quago.io
