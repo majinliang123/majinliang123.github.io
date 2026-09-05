@@ -1,0 +1,211 @@
+port: 7890
+socks-port: 7891
+redir-port: 7892
+tproxy-port: 7895
+mixed-port: 7890
+allow-lan: true
+bind-address: '*'
+mode: rule
+log-level: info
+ipv6: false
+
+# 外部 Web 面板 API 设置
+external-controller: 0.0.0.0:9999
+external-ui: ui
+secret: ""
+
+# DNS 解析设置 (优化国内直连与海外防污染)
+dns:
+  enable: true
+  ipv6: false
+  enhanced-mode: redir-host
+  listen: 0.0.0.0:1053
+  nameserver:
+    - 223.5.5.5
+    - 119.29.29.29
+    - 1.1.1.1
+  fallback:
+    - https://dns.google/dns-query
+    - https://1.1.1.1/dns-query
+    - https://doh.pub/dns-query
+
+# 1. 外部节点订阅源（你的机场链接）
+proxy-providers:
+  my-airport:
+    type: http
+    url: "https://m1.tohno-0.top/oosaka/661ea765781564e0199b3f6f57e865b5"
+    interval: 86400
+    path: ./providers/my-airport.yaml
+    health-check:
+      enable: true
+      interval: 300
+      url: http://www.gstatic.com/generate_204
+
+# 2. 外部规则集 (GitHub 开源库)
+rule-providers:
+  reject:
+    type: http
+    behavior: domain
+    url: "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/reject.txt"
+    path: ./ruleset/reject.yaml
+    interval: 86400
+
+  icloud:
+    type: http
+    behavior: domain
+    url: "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/icloud.txt"
+    path: ./ruleset/icloud.yaml
+    interval: 86400
+
+  apple:
+    type: http
+    behavior: domain
+    url: "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/apple.txt"
+    path: ./ruleset/apple.yaml
+    interval: 86400
+
+  google:
+    type: http
+    behavior: domain
+    url: "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/google.txt"
+    path: ./ruleset/google.yaml
+    interval: 86400
+
+  proxy:
+    type: http
+    behavior: domain
+    url: "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/proxy.txt"
+    path: ./ruleset/proxy.yaml
+    interval: 86400
+
+  direct:
+    type: http
+    behavior: domain
+    url: "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/direct.txt"
+    path: ./ruleset/direct.yaml
+    interval: 86400
+
+  private:
+    type: http
+    behavior: domain
+    url: "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/private.txt"
+    path: ./ruleset/private.yaml
+    interval: 86400
+
+  gfw:
+    type: http
+    behavior: domain
+    url: "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/gfw.txt"
+    path: ./ruleset/gfw.yaml
+    interval: 86400
+
+  tld-not-cn:
+    type: http
+    behavior: domain
+    url: "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/tld-not-cn.txt"
+    path: ./ruleset/tld-not-cn.yaml
+    interval: 86400
+
+  telegramcidr:
+    type: http
+    behavior: ipcidr
+    url: "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/telegramcidr.txt"
+    path: ./ruleset/telegramcidr.yaml
+    interval: 86400
+
+  cncidr:
+    type: http
+    behavior: ipcidr
+    url: "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/cncidr.txt"
+    path: ./ruleset/cncidr.yaml
+    interval: 86400
+
+  lancidr:
+    type: http
+    behavior: ipcidr
+    url: "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/lancidr.txt"
+    path: ./ruleset/lancidr.yaml
+    interval: 86400
+
+  applications:
+    type: http
+    behavior: classical
+    url: "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/applications.txt"
+    path: ./ruleset/applications.yaml
+    interval: 86400
+
+# 3. 强化版策略组 (Proxy Groups)
+proxy-groups:
+  # 手动主控组
+  - name: 节点选择
+    type: select
+    proxies:
+      - 自动选择
+      - 故障转移
+    use:
+      - my-airport
+
+  # 自动优选延迟最低节点
+  - name: 自动选择
+    type: url-test
+    url: http://www.gstatic.com/generate_204
+    interval: 300
+    tolerance: 50
+    use:
+      - my-airport
+
+  # 自动故障转移（主节点挂了自动切备用）
+  - name: 故障转移
+    type: fallback
+    url: http://www.gstatic.com/generate_204
+    interval: 180
+    use:
+      - my-airport
+
+  # AI 工具专线 (ChatGPT / Gemini / Claude)
+  - name: AI工具
+    type: select
+    proxies:
+      - 节点选择
+      - 自动选择
+    use:
+      - my-airport
+
+  # 国外流媒体专线 (YouTube / Netflix)
+  - name: 国外媒体
+    type: select
+    proxies:
+      - 节点选择
+      - 自动选择
+    use:
+      - my-airport
+
+# 4. 分流规则 (Rules)
+rules:
+  - RULE-SET,applications,DIRECT
+  - DOMAIN,clash.razord.top,DIRECT
+  - DOMAIN,yacd.haishan.me,DIRECT
+  - RULE-SET,private,DIRECT
+  - RULE-SET,reject,REJECT
+  - RULE-SET,tld-not-cn,节点选择
+  - RULE-SET,gfw,节点选择
+  - RULE-SET,telegramcidr,节点选择
+
+  # AI 服务强制走“AI工具”策略组
+  - DOMAIN-KEYWORD,openai,AI工具
+  - DOMAIN-KEYWORD,chatgpt,AI工具
+  - DOMAIN-KEYWORD,claude,AI工具
+  - DOMAIN-KEYWORD,gemini,AI工具
+  - DOMAIN-KEYWORD,anthropic,AI工具
+
+  # 流媒体服务走“国外媒体”策略组
+  - DOMAIN-KEYWORD,youtube,国外媒体
+  - DOMAIN-KEYWORD,netflix,国外媒体
+  - DOMAIN-SUFFIX,googlevideo.com,国外媒体
+
+  # 大陆 IP 地址与常见域名直连
+  - RULE-SET,cncidr,DIRECT
+  - GEOIP,CN,DIRECT
+
+  # 兜底规则（未匹配流量直接走直连）
+  - MATCH,DIRECT
